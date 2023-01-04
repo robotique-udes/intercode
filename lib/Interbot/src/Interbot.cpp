@@ -1,3 +1,56 @@
+#include "Interbot/Interbot.h"
+
+#include "Interbot/Direct.h"
+
+Robot robot;
+
+// Toujours public
+Robot::Robot() : moteurGauche{Cote::GAUCHE}, moteurDroit{Cote::DROITE} {}
+
+// Haut-niveau
+void Robot::avancerJusquaLigne()
+{
+    // TODO
+}
+void Robot::avancerJusquaBoite()
+{
+    // TODO
+}
+void Robot::tourner(Cote cote)
+{
+    // TODO
+}
+bool Robot::lumiereAllumee() const
+{
+    // TODO
+    return false;
+}
+bool Robot::estHumide() const
+{
+    // TODO
+    return false;
+}
+bool Robot::pluieEnCours() const
+{
+    // TODO
+    return false;
+}
+void Robot::allumerDel(bool)
+{
+    // TODO
+}
+void Robot::attendre(secondes s)
+{
+    // TODO
+}
+void Robot::demiTour()
+{
+    // TODO
+}
+
+// Moyen-niveau
+
+
 // #include "LowLevel.hpp"
 
 // #include "Direct.hpp"
@@ -58,7 +111,7 @@
 //     setSpeed(0.0f);
 // }
 
-// Interbot::Motor::Motor(Side side) : m_side(side) {}
+Robot::Moteur::Moteur(Cote cote) : m_cote(cote) {}
 
 // const Interbot::LightSensor& Interbot::getLightSensor() const
 // {

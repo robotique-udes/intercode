@@ -1,84 +1,60 @@
 #include <Interbot/Interbot.h>
 
-// Lib
-enum class Cote
-{
-    GAUCHE,
-    DROITE
-};
-void avancerJusquaLigne() {}
-void avancerJusquaBoite() {}
-void tourner(Cote) {}
-// uint32_t obtenirLuminosite();
-bool lumiereAllumee()
-{
-    return false;
-}
-bool estHumide()
-{
-    return false;
-}
-// uint32_t obtenirHumidite();
-bool pluieEnCours()
-{
-    return false;
-}
-void allumerDel(bool) {}
-void attendre(seconds) {}
-void demiTour() {}
+#define FACILE
 
 // Fait par les kids genre
+#ifdef FACILE
 void allerBoite(Cote s)
 {
-    avancerJusquaLigne();
-    tourner(s);
-    avancerJusquaBoite();
+    robot.avancerJusquaLigne();
+    robot.tourner(s);
+    robot.avancerJusquaBoite();
 }
 void revenirBoite(Cote s)
 {
-    demiTour();
-    avancerJusquaLigne();
-    tourner(s);
+    robot.demiTour();
+    robot.avancerJusquaLigne();
+    robot.tourner(s);
 }
 
 void implementation_attendue()
 {
-    avancerJusquaLigne();
-    tourner(Cote::DROITE);
+    robot.avancerJusquaLigne();
+    robot.tourner(Cote::DROITE);
     for (auto i = 0; i < 2; ++i)
     {
         allerBoite(Cote::GAUCHE);
-        auto lumiere = lumiereAllumee();
+        auto lumiere = robot.lumiereAllumee();
         if (lumiere)
         {
-            allumerDel(true);
+            robot.allumerDel(true);
         }
-        attendre(1s);
-        allumerDel(false);
+        robot.attendre(1s);
+        robot.allumerDel(false);
         revenirBoite(Cote::GAUCHE);
     }
     for (auto i = 0; i < 2; ++i)
     {
         allerBoite(Cote::DROITE);
-        auto humide = estHumide();
+        auto humide = robot.estHumide();
         if (humide)
         {
-            allumerDel(true);
+            robot.allumerDel(true);
         }
-        attendre(1s);
-        allumerDel(false);
+        robot.attendre(1s);
+        robot.allumerDel(false);
         revenirBoite(Cote::DROITE);
     }
     for (auto i = 0; i < 2; ++i)
     {
         allerBoite(Cote::GAUCHE);
-        auto pluie = pluieEnCours();
+        auto pluie = robot.pluieEnCours();
         if (pluie)
         {
-            allumerDel(true);
+            robot.allumerDel(true);
         }
-        attendre(1s);
-        allumerDel(false);
+        robot.attendre(1s);
+        robot.allumerDel(false);
         revenirBoite(Cote::DROITE);
     }
 }
@@ -86,7 +62,7 @@ void implementation_attendue()
 // Ma version plus poussee
 void implementation_reference()
 {
-    auto visiterBoites = [](Cote cote, auto& func)
+    auto visiterBoites = [](Cote cote, auto&& func)
     {
         for (auto i = 0; i < 2; ++i)
         {
@@ -94,18 +70,18 @@ void implementation_reference()
             auto test = func();
             if (test)
             {
-                allumerDel(true);
+                robot.allumerDel(true);
             }
-            attendre(1s);
-            allumerDel(false);
+            robot.attendre(1s);
+            robot.allumerDel(false);
             revenirBoite(cote);
         }
     };
-    avancerJusquaLigne();
-    tourner(Cote::DROITE);
-    visiterBoites(Cote::GAUCHE, lumiereAllumee);
-    visiterBoites(Cote::DROITE, estHumide);
-    visiterBoites(Cote::GAUCHE, pluieEnCours);
+    robot.avancerJusquaLigne();
+    robot.tourner(Cote::DROITE);
+    visiterBoites(Cote::GAUCHE, [] { return robot.lumiereAllumee(); });
+    visiterBoites(Cote::DROITE, [] { return robot.estHumide(); });
+    visiterBoites(Cote::GAUCHE, [] { return robot.pluieEnCours(); });
 }
 
 void faireParcours()
@@ -113,3 +89,4 @@ void faireParcours()
     // implementation_attendue();
     implementation_reference();
 }
+#endif // FACILE
