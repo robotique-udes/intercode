@@ -1,4 +1,5 @@
 #include "Interbot/Interbot.h"
+#include <ArduinoMotorCarrier.h>
 
 #include "Interbot/Direct.h"
 
@@ -10,7 +11,7 @@ Robot::Robot() : moteurGauche{Cote::GAUCHE}, moteurDroit{Cote::DROITE} {}
 // Haut-niveau
 void Robot::avancerJusquaLigne()
 {
-    // TODO
+   M1.setDuty(1);
 }
 void Robot::avancerJusquaBoite()
 {
