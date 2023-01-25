@@ -46,6 +46,7 @@ public:
 HAUT_NIVEAU:
     ;
     // clang-format on
+    long detecterObjet();
     void avancerJusquaLigne();
     bool detecterLigne();
     void avancerJusquaBoite();
