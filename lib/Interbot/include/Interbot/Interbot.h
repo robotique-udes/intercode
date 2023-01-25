@@ -47,6 +47,7 @@ HAUT_NIVEAU:
     ;
     // clang-format on
     void avancerJusquaLigne();
+    bool detecterLigne();
     void avancerJusquaBoite();
     void tourner(Cote cote);
     // uint32_t obtenirLuminosite();

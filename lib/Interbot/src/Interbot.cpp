@@ -7,11 +7,66 @@ Robot robot;
 // Toujours public
 Robot::Robot() : moteurGauche{Cote::GAUCHE}, moteurDroit{Cote::DROITE} {}
 
+// Suiveur de lignes
+int capteurDroit = 2; // Left Sensor on Analog Pin 2
+int capteurGauche = 1; // Right Sensor on Analog Pin 1
+int capteurMilieu = 0; // Middle Sensor on Analog Pin 0
+const int whiteLvl = 600; // reading level is white if <600
+const int blackLvl = 850; // reading level is black if >850
+
+// Sonar
+int SonarEntree = 3;
+int SonarSortie = 4;
+
+void setup()
+{
+    Serial.begin(9600);
+    pinMode(capteurDroit,INPUT);
+    pinMode(capteurGauche,INPUT);
+    pinMode(capteurMilieu,INPUT);
+}
+
+
 // Haut-niveau
 void Robot::avancerJusquaLigne()
 {
-    // TODO
 }
+
+bool Robot::detecterLigne()
+{
+    if (digitalRead(capteurDroit) < whiteLvl || digitalRead(capteurGauche)> whiteLvl || digitalRead(capteurMilieu) < whiteLvl)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
+}
+
+
+long convertionMsCm(long microseconds)
+{
+return microseconds / 29 / 2;
+}
+
+long Robot::detecterObjet()
+{
+    long dureePulse, distanceCentimetre;
+    pinMode(SonarSortie, OUTPUT);
+    digitalWrite(SonarSortie, LOW);
+    delayMicroseconds(2);
+    digitalWrite(SonarSortie, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(SonarSortie, LOW);
+
+    pinMode(SonarEntree, INPUT);
+    dureePulse = pulseIn(SonarEntree, HIGH);
+    distanceCentimetre = convertionMsCm(dureePulse);
+
+    return distanceCentimetre;
+}
+
 void Robot::avancerJusquaBoite()
 {
     // TODO
