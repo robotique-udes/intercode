@@ -4,6 +4,8 @@
 
 // Fait par les kids genre
 #ifdef FACILE
+
+
 void allerBoite(Cote s)
 {
     robot.avancerJusquaLigne();
