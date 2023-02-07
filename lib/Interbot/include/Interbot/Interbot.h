@@ -37,6 +37,33 @@ inline secondes operator""s(unsigned long long s)
     #define BAS_NIVEAU   private
 #endif
 
+// Suiveur de ligne //
+
+#define PIN_SDL_DROITE A1 // Left Sensor on Analog Pin 2
+#define PIN_SDL_GAUCHE A2 // Right Sensor on Analog Pin 1
+#define PIN_SDL_MILIEU A3 // Middle Sensor on Analog Pin 0
+#define SdlValeur 600 // Le capteur detecte une ligne lorque la valeur est superieur
+
+// Sonar //
+
+#define SONAR_PIN_INPUT 3
+#define SONAR_PIN_OUTPUT 4
+
+// Simple DEL //
+
+#define PIN_SIMPLE_DEL 5
+
+// Capteur de lumiere //
+
+#define PIN_LUM_CAP_DEL 6
+#define PIN_LUM_DETECTEUR 7
+#define SeuilLumiere 10
+
+// capteur d'humidite //
+
+#define PIN_HUMIDITE 8
+#define SeuilHumidite 500
+
 class Robot
 {
 public:
@@ -47,16 +74,16 @@ HAUT_NIVEAU:
     ;
     // clang-format on
     long detecterObjet();
-    void avancerJusquaLigne();
-    bool detecterLigne();
-    void avancerJusquaBoite();
+    bool detecterLigneDroite();
+    bool detecterLigneMilieu();
+    bool detecterLigneGauche();
     void tourner(Cote cote);
     // uint32_t obtenirLuminosite();
     bool lumiereAllumee() const;
     bool estHumide() const;
     // uint32_t obtenirHumidite();
     bool pluieEnCours() const;
-    void allumerDel(bool);
+    void allumerEteindreDel(bool entree);
     void attendre(secondes s);
     void demiTour();
 

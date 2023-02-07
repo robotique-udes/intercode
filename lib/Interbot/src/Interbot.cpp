@@ -1,40 +1,40 @@
 #include "Interbot/Interbot.h"
-
+#include "Arduino.h"
 #include "Interbot/Direct.h"
 
 Robot robot;
 
+
 // Toujours public
 Robot::Robot() : moteurGauche{Cote::GAUCHE}, moteurDroit{Cote::DROITE} {}
 
-// Suiveur de lignes
-int capteurDroit = 2; // Left Sensor on Analog Pin 2
-int capteurGauche = 1; // Right Sensor on Analog Pin 1
-int capteurMilieu = 0; // Middle Sensor on Analog Pin 0
-const int whiteLvl = 600; // reading level is white if <600
-const int blackLvl = 850; // reading level is black if >850
-
-// Sonar
-int SonarEntree = 3;
-int SonarSortie = 4;
-
-void setup()
+bool Robot::detecterLigneGauche()
 {
-    Serial.begin(9600);
-    pinMode(capteurDroit,INPUT);
-    pinMode(capteurGauche,INPUT);
-    pinMode(capteurMilieu,INPUT);
+    if (digitalRead(PIN_SDL_GAUCHE) < SdlValeur)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-
-// Haut-niveau
-void Robot::avancerJusquaLigne()
+bool Robot::detecterLigneMilieu()
 {
+    if (digitalRead(PIN_SDL_MILIEU) < SdlValeur)
+    {
+        return true;
+    }
+    else
+    {
+        return false;
+    }
 }
 
-bool Robot::detecterLigne()
+bool Robot::detecterLigneDroite()
 {
-    if (digitalRead(capteurDroit) < whiteLvl || digitalRead(capteurGauche)> whiteLvl || digitalRead(capteurMilieu) < whiteLvl)
+    if (digitalRead(PIN_SDL_DROITE) < SdlValeur)
     {
         return true;
     }
@@ -47,42 +47,48 @@ bool Robot::detecterLigne()
 
 long convertionMsCm(long microseconds)
 {
-return microseconds / 29 / 2;
+    return microseconds / 29 / 2;
 }
 
 long Robot::detecterObjet()
 {
     long dureePulse, distanceCentimetre;
-    pinMode(SonarSortie, OUTPUT);
-    digitalWrite(SonarSortie, LOW);
+    pinMode(SONAR_PIN_OUTPUT, OUTPUT);
+    digitalWrite(SONAR_PIN_OUTPUT, LOW);
     delayMicroseconds(2);
-    digitalWrite(SonarSortie, HIGH);
+    digitalWrite(SONAR_PIN_OUTPUT, HIGH);
     delayMicroseconds(10);
-    digitalWrite(SonarSortie, LOW);
+    digitalWrite(SONAR_PIN_OUTPUT, LOW);
 
-    pinMode(SonarEntree, INPUT);
-    dureePulse = pulseIn(SonarEntree, HIGH);
+    pinMode(SONAR_PIN_INPUT, INPUT);
+    dureePulse = pulseIn(SONAR_PIN_INPUT, HIGH);
     distanceCentimetre = convertionMsCm(dureePulse);
 
     return distanceCentimetre;
 }
 
-void Robot::avancerJusquaBoite()
-{
-    // TODO
-}
 void Robot::tourner(Cote cote)
 {
     // TODO
 }
 bool Robot::lumiereAllumee() const
 {
-    // TODO
-    return false;
+    int sensorValue = analogRead(PIN_LUM_DETECTEUR); 
+    float resistance = (float)(1023.0-sensorValue)*10.0/sensorValue;
+    if(resistance>SeuilLumiere)
+    {
+        digitalWrite(PIN_LUM_CAP_DEL,HIGH);
+    }
+    else
+    {
+        digitalWrite(PIN_LUM_CAP_DEL,LOW);
+    }
 }
 bool Robot::estHumide() const
 {
-    // TODO
+    if (analogRead(PIN_HUMIDITE) > SeuilHumidite)
+        return true;
+        
     return false;
 }
 bool Robot::pluieEnCours() const
@@ -90,13 +96,17 @@ bool Robot::pluieEnCours() const
     // TODO
     return false;
 }
-void Robot::allumerDel(bool)
+void Robot::allumerEteindreDel(bool entree)
 {
-    // TODO
+    if (entree)
+        digitalWrite(PIN_SIMPLE_DEL, HIGH);
+    else
+        digitalWrite(PIN_SIMPLE_DEL, LOW);
 }
+
 void Robot::attendre(secondes s)
 {
-    // TODO
+    delay(s.valeur*1000);
 }
 void Robot::demiTour()
 {

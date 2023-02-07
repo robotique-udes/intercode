@@ -8,20 +8,20 @@
 
 void allerBoite(Cote s)
 {
-    robot.avancerJusquaLigne();
+   // robot.avancerJusquaLigne();
     robot.tourner(s);
-    robot.avancerJusquaBoite();
+    //robot.avancerJusquaBoite();
 }
 void revenirBoite(Cote s)
 {
     robot.demiTour();
-    robot.avancerJusquaLigne();
+    //robot.avancerJusquaLigne();
     robot.tourner(s);
 }
 
 void implementation_attendue()
 {
-    robot.avancerJusquaLigne();
+    //robot.avancerJusquaLigne();
     robot.tourner(Cote::DROITE);
     for (auto i = 0; i < 2; ++i)
     {
@@ -29,10 +29,10 @@ void implementation_attendue()
         auto lumiere = robot.lumiereAllumee();
         if (lumiere)
         {
-            robot.allumerDel(true);
+            robot.allumerEteindreDel(true);
         }
         robot.attendre(1s);
-        robot.allumerDel(false);
+        robot.allumerEteindreDel(false);
         revenirBoite(Cote::GAUCHE);
     }
     for (auto i = 0; i < 2; ++i)
@@ -41,10 +41,10 @@ void implementation_attendue()
         auto humide = robot.estHumide();
         if (humide)
         {
-            robot.allumerDel(true);
+            robot.allumerEteindreDel(true);
         }
         robot.attendre(1s);
-        robot.allumerDel(false);
+        robot.allumerEteindreDel(false);
         revenirBoite(Cote::DROITE);
     }
     for (auto i = 0; i < 2; ++i)
@@ -53,10 +53,10 @@ void implementation_attendue()
         auto pluie = robot.pluieEnCours();
         if (pluie)
         {
-            robot.allumerDel(true);
+            robot.allumerEteindreDel(true);
         }
         robot.attendre(1s);
-        robot.allumerDel(false);
+        robot.allumerEteindreDel(false);
         revenirBoite(Cote::DROITE);
     }
 }
@@ -72,14 +72,14 @@ void implementation_reference()
             auto test = func();
             if (test)
             {
-                robot.allumerDel(true);
+                robot.allumerEteindreDel(true);
             }
             robot.attendre(1s);
-            robot.allumerDel(false);
+            robot.allumerEteindreDel(false);
             revenirBoite(cote);
         }
     };
-    robot.avancerJusquaLigne();
+    //robot.avancerJusquaLigne();
     robot.tourner(Cote::DROITE);
     visiterBoites(Cote::GAUCHE, [] { return robot.lumiereAllumee(); });
     visiterBoites(Cote::DROITE, [] { return robot.estHumide(); });
@@ -91,4 +91,5 @@ void faireParcours()
     // implementation_attendue();
     implementation_reference();
 }
+
 #endif // FACILE
