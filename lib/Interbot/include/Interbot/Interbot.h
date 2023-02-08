@@ -64,6 +64,13 @@ inline secondes operator""s(unsigned long long s)
 #define PIN_HUMIDITE 8
 #define SeuilHumidite 500
 
+// donnees de deplacement //
+
+#define VitesseMoteur 15
+#define DelaisPourTourner 1000
+
+
+
 class Robot
 {
 public:

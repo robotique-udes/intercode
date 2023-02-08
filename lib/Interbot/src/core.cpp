@@ -1,7 +1,6 @@
 #include "Interbot/Direct.h"
 #include "Interbot/Interbot.h"
 #include <Arduino.h>
-#include <Interbot/suiveurLigne.h>
 #include <ArduinoMotorCarrier.h>
 
 
@@ -9,7 +8,7 @@ static float batteryVoltage;
 //low battery limit (discharged)
 static float batteryLimit; 
 //Variable to change the motor speed and direction
-int duty = 50;
+int duty = -15;
 
 // Prototype pour la fonction qui sera définie par l'utilisateur
 //void faireParcours();
@@ -95,7 +94,7 @@ void setup()
   M3.setDuty(0);
   M4.setDuty(0);
 
-  batteryLimit = 9.50; //Around 9V for a 3S LiPo battery
+  batteryLimit = 6; //Around 9V for a 3S LiPo battery
 
 }
 
@@ -140,7 +139,7 @@ void loop() {
   else
   {
     //Motor test
-    M1.setDuty(duty);
+    M2.setDuty(duty);
     delay(500);
 
     float batteryVoltage = (float)battery.getRaw() / 77;

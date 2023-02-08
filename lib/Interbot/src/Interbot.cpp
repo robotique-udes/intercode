@@ -5,6 +5,7 @@
 Robot robot;
 
 
+
 // Toujours public
 Robot::Robot() : moteurGauche{Cote::GAUCHE}, moteurDroit{Cote::DROITE} {}
 
@@ -68,8 +69,21 @@ long Robot::detecterObjet()
 }
 
 void Robot::tourner(Cote cote)
-{
-    // TODO
+{   
+    if(cote == Cote::GAUCHE)
+    {
+        M1.setDuty(-VitesseMoteur);
+        M2.setDuty(VitesseMoteur);
+    }
+    else
+    {
+        M1.setDuty(VitesseMoteur);
+        M2.setDuty(-VitesseMoteur);
+    }
+    delay(DelaisPourTourner);
+    M1.setDuty(0);
+    M2.setDuty(0);
+    
 }
 bool Robot::lumiereAllumee() const
 {
