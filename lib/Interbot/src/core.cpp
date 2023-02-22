@@ -76,7 +76,7 @@ void setup()
   else
   {
     Serial.println("Couldn't connect! Is the red led blinking? You may need to update the firmware with FWUpdater sketch");
-    while (1);
+    //while (1);
   }
 
   // Reboot the motor controller; brings every value back to default
@@ -113,45 +113,13 @@ void setup()
     
 //     M2.setDuty(50);
 // }
+
+bool b = true;
+
 void loop() {
-
-  //Take the battery status
-  batteryVoltage = (float)battery.getRaw() / 77;
-
-  //Reset to the default values if the battery levels are lower than 11V
-  if (batteryVoltage < batteryLimit)
-  {
-    Serial.println(" ");
-    Serial.println("WARNING: LOW BATTERY");
-    Serial.println("ALL SYSTEMS DOWN");
-    M1.setDuty(0);
-    M2.setDuty(0);
-    M3.setDuty(0);
-    M4.setDuty(0);
-    while (batteryVoltage < batteryLimit) 
-    {
-      batteryVoltage = (float)battery.getRaw() / 77;
-      controller.ping();
-      //wait
-      delay(50);
-    }
-  }
-  else
-  {
-    //Motor test
-    M2.setDuty(duty);
-    delay(500);
-
-    float batteryVoltage = (float)battery.getRaw() / 77;
-    Serial.print("Battery voltage: ");
-    Serial.println(batteryVoltage);
-
-    //Keep active the communication MKR1000 & MKRMotorCarrier
-    //Ping the samd11
-    controller.ping();
-    //wait
-    delay(50);
-  }
+  Serial.println(analogRead(A0));
+  Serial.println(robot.pluieEnCours());
+  delay(1000);
 }
       
 

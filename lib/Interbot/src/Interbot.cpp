@@ -9,6 +9,23 @@ Robot robot;
 // Toujours public
 Robot::Robot() : moteurGauche{Cote::GAUCHE}, moteurDroit{Cote::DROITE} {}
 
+/*
+Le suiveur de ligne possede 3 capteurs (a gauche, au milieu et a droite). Pour suivre une ligne, il suffit d'avancer droit 
+lorsque la ligne est detectee sous le capteur du milieu, de tourner a gauche lorsque la ligne est detectee par le 
+capteur gauche et a droite lorsqu'elle est detectee par le capteur de droite. La fonction prend en parametre le capteur 
+a observer. La valeur 1 est retournee si une ligne est detectee et 0 dans le cas contraire.
+*/
+bool Robot::detecterLigne(EmplacementCapteur capteur)
+{
+    if ((capteur == EmplacementCapteur::GAUCHE && digitalRead(PIN_SDL_GAUCHE) < SdlValeur) ||
+        (capteur == EmplacementCapteur::MILIEU && digitalRead(PIN_SDL_MILIEU) < SdlValeur) ||
+        (capteur == EmplacementCapteur::DROITE && digitalRead(PIN_SDL_DROITE) < SdlValeur))
+        return true;
+
+    return false; 
+}
+
+
 bool Robot::detecterLigneGauche()
 {
     if (digitalRead(PIN_SDL_GAUCHE) < SdlValeur)
@@ -85,6 +102,9 @@ void Robot::tourner(Cote cote)
     M2.setDuty(0);
     
 }
+/*
+Retourne Allumer si la lumière est allumer
+*/
 bool Robot::lumiereAllumee() const
 {
     int sensorValue = analogRead(PIN_LUM_DETECTEUR); 
@@ -107,7 +127,9 @@ bool Robot::estHumide() const
 }
 bool Robot::pluieEnCours() const
 {
-    // TODO
+    if (digitalRead(PIN_CAPTEUR_EAU) == HIGH)
+        return true;
+        
     return false;
 }
 void Robot::allumerEteindreDel(bool entree)

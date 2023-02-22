@@ -5,7 +5,7 @@ La librairie aura deux ou trois niveaux de difficulté
 Elles devront être bien documentées, car c'est ce qu'utiliseront la plupart des élèves qui n'ont jamais programmé.
     -   Suivre la ligne jusqu'à une jonction
     -   Tourner à gauche/droite
-    -   Obtenir valeur de succès (booléenne) du capteur X, peut importe le capteur
+    -   Obtenir valeur de succès (booléenne) du capteur X, peu importe le capteur
     -   (Voir fonction `implementation_attendue` dans `main.cpp`)
 2. MOYEN (à voir) -> les fonctions bas-niveau existent et sont disponibles, elles font une abstraction du hardware, sans plus.
 Ces fonctions seront utilisés par notre implémentation haut-niveau, mais seront `private` en mode facile.
