@@ -117,9 +117,11 @@ void setup()
 bool b = true;
 
 void loop() {
-  Serial.println(analogRead(A0));
-  Serial.println(robot.pluieEnCours());
-  delay(1000);
+  // Serial.println(analogRead(A0));
+
+   robot.lumiereAllumee();
+  
+  delay(500);
 }
       
 

@@ -26,11 +26,11 @@ void implementation_attendue()
     for (auto i = 0; i < 2; ++i)
     {
         allerBoite(Cote::GAUCHE);
-        auto lumiere = robot.lumiereAllumee();
-        if (lumiere)
-        {
-            robot.allumerEteindreDel(true);
-        }
+        // auto lumiere = robot.lumiereAllumee();
+        // if (lumiere)
+        // {
+        //     robot.allumerEteindreDel(true);
+        // }
         robot.attendre(1s);
         robot.allumerEteindreDel(false);
         revenirBoite(Cote::GAUCHE);
@@ -70,10 +70,10 @@ void implementation_reference()
         {
             allerBoite(cote);
             auto test = func();
-            if (test)
-            {
-                robot.allumerEteindreDel(true);
-            }
+            // if (test)
+            // {
+            //     robot.allumerEteindreDel(true);
+            // }
             robot.attendre(1s);
             robot.allumerEteindreDel(false);
             revenirBoite(cote);

@@ -105,17 +105,26 @@ void Robot::tourner(Cote cote)
 /*
 Retourne Allumer si la lumière est allumer
 */
-bool Robot::lumiereAllumee() const
+Lumiere Robot::lumiereAllumee() const
 {
-    int sensorValue = analogRead(PIN_LUM_DETECTEUR); 
-    float resistance = (float)(1023.0-sensorValue)*10.0/sensorValue;
-    if(resistance>SeuilLumiere)
+    int sensorValue = analogRead(A0);
+    if (sensorValue > HauteLumiere)
     {
-        digitalWrite(PIN_LUM_CAP_DEL,HIGH);
+         Serial.println("Lumiere haute");
+        return Lumiere::Haute;
     }
+    else if (sensorValue > MoyenneLumiere && sensorValue < HauteLumiere){
+        Serial.println("Lumiere moyenne");
+        return Lumiere::Moyenne;
+    }
+    else if (sensorValue > BasseLumiere && sensorValue < MoyenneLumiere)
+     {
+        Serial.println("Lumiere basse");
+        return Lumiere::Basse;}
     else
     {
-        digitalWrite(PIN_LUM_CAP_DEL,LOW);
+        Serial.println("Eteinte");
+        return Lumiere::Eteinte;
     }
 }
 bool Robot::estHumide() const
@@ -127,7 +136,7 @@ bool Robot::estHumide() const
 }
 bool Robot::pluieEnCours() const
 {
-    if (digitalRead(PIN_CAPTEUR_EAU) == HIGH)
+    if(analogRead(PIN_CAPTEUR_EAU) < SeuilPluie)
         return true;
         
     return false;

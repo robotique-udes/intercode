@@ -18,7 +18,13 @@ enum class EmplacementCapteur
     MILIEU,
     DROITE
 };
-
+enum class Lumiere
+{
+    Haute,
+    Moyenne,
+    Basse,
+    Eteinte
+};
 enum class Cote
 {
     GAUCHE,
@@ -68,18 +74,19 @@ inline secondes operator""s(unsigned long long s)
 
 // Capteur de lumiere //
 
-#define PIN_LUM_CAP_DEL 6
-#define PIN_LUM_DETECTEUR 7
-#define SeuilLumiere 10
+#define HauteLumiere 700
+#define MoyenneLumiere 500
+#define BasseLumiere 200
 
 // capteur d'humidite //
 
-#define PIN_HUMIDITE 8
-#define SeuilHumidite 500
+#define PIN_HUMIDITE A1
+#define SeuilHumidite 400
 
-// capteur d'humidite //
+// capteur d'eau //
 
 #define PIN_CAPTEUR_EAU A0
+#define SeuilPluie 200
 
 // donnees de deplacement //
 
@@ -105,13 +112,14 @@ HAUT_NIVEAU:
     bool detecterLigneGauche();
     void tourner(Cote cote);
     // uint32_t obtenirLuminosite();
-    bool lumiereAllumee() const;
+    Lumiere lumiereAllumee() const;
     bool estHumide() const;
     // uint32_t obtenirHumidite();
     bool pluieEnCours() const;
     void allumerEteindreDel(bool entree);
     void attendre(secondes s);
     void demiTour();
+    void sonor (int frequence, int duree);
 
     // clang-format off
 MOYEN_NIVEAU:
