@@ -15,6 +15,49 @@ lorsque la ligne est detectee sous le capteur du milieu, de tourner a gauche lor
 capteur gauche et a droite lorsqu'elle est detectee par le capteur de droite. La fonction prend en parametre le capteur 
 a observer. La valeur 1 est retournee si une ligne est detectee et 0 dans le cas contraire.
 */
+
+void Robot::avancer(int PourcentageVitesse)
+{
+    int PWM = floor(PourcentageVitesse/100*255);
+    if (PWM = 0)
+        arreter();
+    else if (PWM < 20)
+        PWM = 20;
+
+    if (PWM > 0){
+        analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,PWM);
+        digitalWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
+        analogWrite(PIN_MOTEUR_DROITE_AVANCER,PWM);
+        digitalWrite(PIN_MOTEUR_DROITE_RECULER,LOW);
+    }
+}
+
+void Robot::reculer(int PourcentageVitesse)
+{
+    int PWM = floor(PourcentageVitesse/100*255);
+    if (PWM = 0){
+        arreter();
+    }  
+    else if (PWM < 20)
+        PWM = 20;
+    if (PWM > 0){
+        digitalWrite(PIN_MOTEUR_GAUCHE_AVANCER,LOW);
+        analogWrite(PIN_MOTEUR_GAUCHE_RECULER,PWM);
+        digitalWrite(PIN_MOTEUR_DROITE_AVANCER,LOW);
+        analogWrite(PIN_MOTEUR_DROITE_RECULER,PWM);
+    }
+    
+}
+
+void Robot::arreter()
+{
+    digitalWrite(PIN_MOTEUR_GAUCHE_AVANCER,LOW);
+    digitalWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
+    digitalWrite(PIN_MOTEUR_DROITE_AVANCER,LOW);
+    digitalWrite(PIN_MOTEUR_DROITE_RECULER,LOW); 
+}
+
+
 bool Robot::detecterLigne(EmplacementCapteur capteur)
 {
     if ((capteur == EmplacementCapteur::GAUCHE && digitalRead(PIN_SDL_GAUCHE) < SdlValeur) ||
@@ -87,21 +130,25 @@ long Robot::detecterObjet()
 
 void Robot::tourner(Cote cote)
 {   
-    if(cote == Cote::GAUCHE)
+    int PWM = 50;
+
+    if (cote == Cote::DROITE)
     {
-        M1.setDuty(-VitesseMoteur);
-        M2.setDuty(VitesseMoteur);
+        analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,PWM);
+        digitalWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
+        digitalWrite(PIN_MOTEUR_DROITE_AVANCER,LOW);
+        digitalWrite(PIN_MOTEUR_DROITE_RECULER,LOW);
     }
     else
     {
-        M1.setDuty(VitesseMoteur);
-        M2.setDuty(-VitesseMoteur);
-    }
-    delay(DelaisPourTourner);
-    M1.setDuty(0);
-    M2.setDuty(0);
-    
-}
+        digitalWrite(PIN_MOTEUR_GAUCHE_AVANCER,LOW);
+        digitalWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
+        analogWrite(PIN_MOTEUR_DROITE_AVANCER,PWM);
+        digitalWrite(PIN_MOTEUR_DROITE_RECULER,LOW);
+    } 
+    delay(1000);
+    arreter();   
+ }
 /*
 Retourne Allumer si la lumière est allumer
 */

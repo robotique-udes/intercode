@@ -89,6 +89,11 @@ void setup()
   Serial.print("Battery voltage: ");
   Serial.println(batteryVoltage);
 
+  pinMode(PIN_MOTEUR_GAUCHE_AVANCER, OUTPUT);
+	pinMode(PIN_MOTEUR_GAUCHE_RECULER, OUTPUT);
+	pinMode(PIN_MOTEUR_DROITE_AVANCER, OUTPUT);
+	pinMode(PIN_MOTEUR_DROITE_RECULER, OUTPUT);
+
   M1.setDuty(0);
   M2.setDuty(0);
   M3.setDuty(0);
@@ -113,15 +118,18 @@ void setup()
     
 //     M2.setDuty(50);
 // }
-
-bool b = true;
+bool b = false;
 
 void loop() {
   // Serial.println(analogRead(A0));
-
-   robot.lumiereAllumee();
-  
-  delay(500);
+  if (!b){
+    Serial.println("Jambon");
+    b = true;
+  }
+    digitalWrite(PIN_MOTEUR_GAUCHE_AVANCER,HIGH);
+    digitalWrite(PIN_MOTEUR_GAUCHE_RECULER,HIGH);
+    digitalWrite(PIN_MOTEUR_DROITE_AVANCER,HIGH);
+    digitalWrite(PIN_MOTEUR_DROITE_RECULER,HIGH); 
 }
       
 

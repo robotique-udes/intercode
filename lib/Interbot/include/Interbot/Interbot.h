@@ -57,6 +57,14 @@ inline secondes operator""s(unsigned long long s)
 #endif
 
 // Suiveur de ligne //
+#define PIN_MOTEUR_GAUCHE_AVANCER 0
+#define PIN_MOTEUR_GAUCHE_RECULER 1
+
+#define PIN_MOTEUR_DROITE_AVANCER 6
+#define PIN_MOTEUR_DROITE_RECULER 7
+
+
+// Suiveur de ligne //
 
 #define PIN_SDL_DROITE A1 // Left Sensor on Analog Pin 2
 #define PIN_SDL_GAUCHE A2 // Right Sensor on Analog Pin 1
@@ -105,7 +113,9 @@ HAUT_NIVEAU:
     ;
     // clang-format on
     long detecterObjet();
-    
+    void avancer(int PourcentageVitesse);
+    void reculer(int PourcentageVitesse);
+    void arreter();
     bool detecterLigne(EmplacementCapteur capteur); 
     bool detecterLigneDroite();
     bool detecterLigneMilieu();
@@ -273,6 +283,8 @@ public:
 HAUT_NIVEAU:
     ;
     // clang-format on
+    void avancer();
+    void arreter();
     void AvancerDistanceCm(centimetre distance);
     void AvancerJusquaObjet();
     long DistanceObjet();
