@@ -71,7 +71,7 @@ bool Robot::detecterLigne(EmplacementCapteur capteur)
 
 bool Robot::detecterLigneGauche()
 {
-    if (digitalRead(PIN_SDL_GAUCHE) < SdlValeur)
+    if (analogRead(PIN_SDL_GAUCHE) < SdlValeur)
     {
         return true;
     }
@@ -83,7 +83,7 @@ bool Robot::detecterLigneGauche()
 
 bool Robot::detecterLigneMilieu()
 {
-    if (digitalRead(PIN_SDL_MILIEU) < SdlValeur)
+    if (analogRead(PIN_SDL_MILIEU) < SdlValeur)
     {
         return true;
     }
@@ -95,7 +95,7 @@ bool Robot::detecterLigneMilieu()
 
 bool Robot::detecterLigneDroite()
 {
-    if (digitalRead(PIN_SDL_DROITE) < SdlValeur)
+    if (analogRead(PIN_SDL_DROITE) < SdlValeur)
     {
         return true;
     }

@@ -4,11 +4,8 @@
 #include <ArduinoMotorCarrier.h>
 
 
-static float batteryVoltage;
-//low battery limit (discharged)
-static float batteryLimit; 
-//Variable to change the motor speed and direction
-int duty = -15;
+
+
 
 // Prototype pour la fonction qui sera définie par l'utilisateur
 //void faireParcours();
@@ -66,41 +63,14 @@ void setup()
   //Serial port initialization
   Serial.begin(115200);
   while (!Serial);
-
+  Serial.println("NOW ready");
   //Establishing the communication with the motor shield
-  if (controller.begin())
-  {
-    Serial.print("MKR Motor Shield connected, firmware version ");
-    Serial.println(controller.getFWVersion());
-  }
-  else
-  {
-    Serial.println("Couldn't connect! Is the red led blinking? You may need to update the firmware with FWUpdater sketch");
-    //while (1);
-  }
-
-  // Reboot the motor controller; brings every value back to default
-  Serial.println("reboot");
-  controller.reboot();
-  delay(500);
-
-  //Take the battery status
-  float batteryVoltage = (float)battery.getRaw() / 77;
-  Serial.print("Battery voltage: ");
-  Serial.println(batteryVoltage);
+  
 
   pinMode(PIN_MOTEUR_GAUCHE_AVANCER, OUTPUT);
 	pinMode(PIN_MOTEUR_GAUCHE_RECULER, OUTPUT);
 	pinMode(PIN_MOTEUR_DROITE_AVANCER, OUTPUT);
 	pinMode(PIN_MOTEUR_DROITE_RECULER, OUTPUT);
-
-  M1.setDuty(0);
-  M2.setDuty(0);
-  M3.setDuty(0);
-  M4.setDuty(0);
-
-  batteryLimit = 6; //Around 9V for a 3S LiPo battery
-
 }
 
 // void loop()
@@ -118,18 +88,14 @@ void setup()
     
 //     M2.setDuty(50);
 // }
-bool b = false;
+
 
 void loop() {
-  // Serial.println(analogRead(A0));
-  if (!b){
-    Serial.println("Jambon");
-    b = true;
-  }
+    Serial.println("loop");
     digitalWrite(PIN_MOTEUR_GAUCHE_AVANCER,HIGH);
-    digitalWrite(PIN_MOTEUR_GAUCHE_RECULER,HIGH);
+    digitalWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
     digitalWrite(PIN_MOTEUR_DROITE_AVANCER,HIGH);
-    digitalWrite(PIN_MOTEUR_DROITE_RECULER,HIGH); 
+    digitalWrite(PIN_MOTEUR_DROITE_RECULER,LOW); 
 }
       
 

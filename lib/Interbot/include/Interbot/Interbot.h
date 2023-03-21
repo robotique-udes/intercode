@@ -102,7 +102,6 @@ inline secondes operator""s(unsigned long long s)
 #define DelaisPourTourner 1000
 
 
-
 class Robot
 {
 public:
@@ -186,6 +185,7 @@ MOYEN_NIVEAU:
     CapteurHumidite capteurHumidite;
 };
 extern Robot robot;
+
 
 // class Batterie
 // {
