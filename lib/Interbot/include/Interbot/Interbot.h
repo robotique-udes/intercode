@@ -1,6 +1,7 @@
 #pragma once
 #include "Interbot/Direct.h"
 #include "Interbot/Utils.h"
+//#include "Config.h"
 
 struct secondes
 {
@@ -101,7 +102,7 @@ inline secondes operator""s(unsigned long long s)
 #define VitesseMoteur 15
 #define DelaisPourTourner 1000
 
-
+//#ifdef ADVANCED
 class Robot
 {
 public:
@@ -185,7 +186,90 @@ MOYEN_NIVEAU:
     CapteurHumidite capteurHumidite;
 };
 extern Robot robot;
+//#endif
 
+//#ifdef SIMPLE
+class RobotFacile
+{
+public:
+    RobotFacile();
+    // clang-format off
+
+HAUT_NIVEAU:
+    ;
+    // clang-format on
+    void avancer();
+    void arreter();
+    void AvancerDistanceCm(centimetre distance);
+    void AvancerJusquaObjet();
+    long DistanceObjet();
+    void AvancerJusqualigne();
+    void tourner(Cote cote);
+    uint32_t obtenirLuminosite();
+    bool lumiereAllumee() const;
+    bool estHumide() const;
+    uint32_t obtenirHumidite();
+    bool pluieEnCours() const;
+    void allumerDel();
+    void eteindreDel();
+    void attendre(secondes s);
+    void demiTour();
+
+    // clang-format off
+MOYEN_NIVEAU:
+    ;
+    // clang-format on
+    class Batterie
+    {
+        float getTension() const;
+    };
+    class Moteur
+    {
+        enum class Sens
+        {
+            Avant,
+            Arriere
+        };
+
+        void setVitesse(float vitesse);
+        float getVitesse() const;
+        Sens getSens() const;
+        void arreter();
+
+    private:
+        float m_vitesse;
+        Cote m_cote;
+        Moteur(Cote cote);
+        friend class Robot;
+    };
+    Moteur moteurGauche;
+    Moteur moteurDroit;
+    class CapteurLumiere
+    {
+    public:
+        float getLuminosite() const;
+    };
+    CapteurLumiere capteurLumiere;
+
+    class CapteurPluie
+    {
+    public:
+        CapteurPluie() : m_pin{PinMode::INPUT} {}
+        bool isPluie() const;
+
+    private:
+        Pin<0> m_pin;
+    };
+    CapteurPluie capteurPluie;
+
+    class CapteurHumidite
+    {
+    public:
+        float getHumidite() const;
+    };
+    CapteurHumidite capteurHumidite;
+};
+//#endif
 
 // class Batterie
 // {
@@ -271,86 +355,3 @@ extern Robot robot;
 //     MoistureSensor m_moistureSensor;
 //     RainSensor m_rainSensor;
 // };
-
-
-
-class RobotFacile
-{
-public:
-    RobotFacile();
-    // clang-format off
-
-HAUT_NIVEAU:
-    ;
-    // clang-format on
-    void avancer();
-    void arreter();
-    void AvancerDistanceCm(centimetre distance);
-    void AvancerJusquaObjet();
-    long DistanceObjet();
-    void AvancerJusqualigne();
-    void tourner(Cote cote);
-    uint32_t obtenirLuminosite();
-    bool lumiereAllumee() const;
-    bool estHumide() const;
-    uint32_t obtenirHumidite();
-    bool pluieEnCours() const;
-    void allumerDel();
-    void eteindreDel();
-    void attendre(secondes s);
-    void demiTour();
-
-    // clang-format off
-MOYEN_NIVEAU:
-    ;
-    // clang-format on
-    class Batterie
-    {
-        float getTension() const;
-    };
-    class Moteur
-    {
-        enum class Sens
-        {
-            Avant,
-            Arriere
-        };
-
-        void setVitesse(float vitesse);
-        float getVitesse() const;
-        Sens getSens() const;
-        void arreter();
-
-    private:
-        float m_vitesse;
-        Cote m_cote;
-        Moteur(Cote cote);
-        friend class Robot;
-    };
-    Moteur moteurGauche;
-    Moteur moteurDroit;
-    class CapteurLumiere
-    {
-    public:
-        float getLuminosite() const;
-    };
-    CapteurLumiere capteurLumiere;
-
-    class CapteurPluie
-    {
-    public:
-        CapteurPluie() : m_pin{PinMode::INPUT} {}
-        bool isPluie() const;
-
-    private:
-        Pin<0> m_pin;
-    };
-    CapteurPluie capteurPluie;
-
-    class CapteurHumidite
-    {
-    public:
-        float getHumidite() const;
-    };
-    CapteurHumidite capteurHumidite;
-};
