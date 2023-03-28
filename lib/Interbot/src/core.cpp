@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <ArduinoMotorCarrier.h>
 
+void demonstrationMoteurs();
 
 static float batteryVoltage;
 //low battery limit (discharged)
@@ -67,27 +68,13 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  //Establishing the communication with the motor shield
-  if (controller.begin())
-  {
-    Serial.print("MKR Motor Shield connected, firmware version ");
-    Serial.println(controller.getFWVersion());
-  }
-  else
-  {
-    Serial.println("Couldn't connect! Is the red led blinking? You may need to update the firmware with FWUpdater sketch");
-    //while (1);
-  }
+  
 
     // Reboot the motor controller; brings every value back to default
     Serial.println("reboot");
-    controller.reboot();
     delay(500);
 
-    //Take the battery status
-    float batteryVoltage = (float)battery.getRaw() / 77;
-    Serial.print("Battery voltage: ");
-    Serial.println(batteryVoltage);
+ 
 
     pinMode(PIN_MOTEUR_GAUCHE_AVANCER, OUTPUT);
     pinMode(PIN_MOTEUR_GAUCHE_RECULER, OUTPUT);
@@ -101,10 +88,29 @@ void setup()
 bool b = false;
 
 void loop() {
-    digitalWrite(PIN_MOTEUR_GAUCHE_AVANCER,LOW);
-    digitalWrite(PIN_MOTEUR_GAUCHE_RECULER,HIGH);
-    digitalWrite(PIN_MOTEUR_DROITE_AVANCER,HIGH);
-    digitalWrite(PIN_MOTEUR_DROITE_RECULER,LOW); 
+    demonstrationMoteurs();
+    while(1)
+    {
+    }
+}
+
+void demonstrationMoteurs(){
+  secondes delai;
+  delai.valeur = 2;
+  Serial.println("Avancer");
+  robot.avancer(50);
+  robot.attendre(delai);
+  Serial.println("Reculer");
+  robot.reculer(50);
+  robot.attendre(delai);
+  Serial.println("Stop");
+  robot.arreter();
+  robot.attendre(delai);
+  Serial.println("Demi-tour");
+  robot.demiTour();
+  robot.attendre(delai);
+  Serial.println("Quart de tour");
+  robot.tourner(Cote::DROITE);
 }
       
 

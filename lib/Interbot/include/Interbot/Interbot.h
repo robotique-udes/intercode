@@ -58,11 +58,11 @@ inline secondes operator""s(unsigned long long s)
 #endif
 
 // Suiveur de ligne //
-#define PIN_MOTEUR_GAUCHE_AVANCER 0
-#define PIN_MOTEUR_GAUCHE_RECULER 1
+#define PIN_MOTEUR_GAUCHE_AVANCER 2
+#define PIN_MOTEUR_GAUCHE_RECULER 3
 
-#define PIN_MOTEUR_DROITE_AVANCER 6
-#define PIN_MOTEUR_DROITE_RECULER 7
+#define PIN_MOTEUR_DROITE_AVANCER 5
+#define PIN_MOTEUR_DROITE_RECULER 4
 
 
 // Suiveur de ligne //

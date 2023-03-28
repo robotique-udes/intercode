@@ -61,35 +61,12 @@ void implementation_attendue()
     }
 }
 
-// Ma version plus poussee
-void implementation_reference()
-{
-    auto visiterBoites = [](Cote cote, auto&& func)
-    {
-        for (auto i = 0; i < 2; ++i)
-        {
-            allerBoite(cote);
-            auto test = func();
-            // if (test)
-            // {
-            //     robot.allumerEteindreDel(true);
-            // }
-            robot.attendre(1s);
-            robot.allumerEteindreDel(false);
-            revenirBoite(cote);
-        }
-    };
-    //robot.avancerJusquaLigne();
-    robot.tourner(Cote::DROITE);
-    visiterBoites(Cote::GAUCHE, [] { return robot.lumiereAllumee(); });
-    visiterBoites(Cote::DROITE, [] { return robot.estHumide(); });
-    visiterBoites(Cote::GAUCHE, [] { return robot.pluieEnCours(); });
-}
+
 
 void faireParcours()
 {
     // implementation_attendue();
-    implementation_reference();
+    implementation_attendue();
 }
 
 #endif // FACILE
