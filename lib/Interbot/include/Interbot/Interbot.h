@@ -19,6 +19,9 @@ enum class EmplacementCapteur
     MILIEU,
     DROITE
 };
+/*
+Enumeration de luminosité
+*/
 enum class Lumiere
 {
     Haute,
@@ -74,8 +77,8 @@ inline secondes operator""s(unsigned long long s)
 
 // Sonar //
 
-#define SONAR_PIN_INPUT 3
-#define SONAR_PIN_OUTPUT 4
+#define SONAR_PIN_INPUT 8
+#define SONAR_PIN_OUTPUT 6
 
 // Simple DEL //
 
@@ -112,21 +115,63 @@ public:
 HAUT_NIVEAU:
     ;
     // clang-format on
+    /*
+        Cette fonction utilise le sonar pour détecter un objet. Elle retourne la distance en centimetres.
+        @return Distance en centimetres
+    */
     long detecterObjet();
-    void avancer(int PourcentageVitesse);
+    /*
+    Cette fonction permet de faire avancer le robot.
+    @param Le pourcentage de vitesse à utiliser
+    @return void
+    */
+    void avancer(int PourcentageVitesse); // Changer pour mettre une distance
+    /*
+    Cette fonction permet de faire reculer le robot.
+    @return void
+    */
     void reculer(int PourcentageVitesse);
+    /*
+    Cette fonction permet d'arrêter le robot.
+    @return void
+    */
     void arreter();
+    /*
+    Cette fonction utilise les capteurs de ligne pour détecter une ligne. Elle retourne true si une ligne est détectée.
+    @param capteur Le capteur à utiliser
+    @return true si une ligne est détectée
+    */
     bool detecterLigne(EmplacementCapteur capteur); 
-    bool detecterLigneDroite();
+    /*
+    Cette fonction utilise les capteurs de ligne pour détecter une ligne. Elle retourne true si une ligne est détectée.
+    @return true si une ligne est détectée
+    */
+    bool detecterLigneDroite(); /* Utiliser une seule fonction pour les trois*/
     bool detecterLigneMilieu();
     bool detecterLigneGauche();
+    /*
+    Cette fonction permet de tourner le robot sur lui-même.
+    @param cote Le côté sur lequel le robot doit tourner
+    */
     void tourner(Cote cote);
     // uint32_t obtenirLuminosite();
-    Lumiere lumiereAllumee() const;
+    /*Cette fonction détecte si une lumière est allumée.
+    @return Luminosité
+    */
+    Lumiere detecterLumiere() const;
+    /* 
+    Cette fonction détecte si il y a de l'eau.
+    @return true si il y a de l'eau
+    */
     bool estHumide() const;
     // uint32_t obtenirHumidite();
     bool pluieEnCours() const;
     void allumerEteindreDel(bool entree);
+    /*
+        Cette fonction permet de faire attendre le robot.
+        @param s Le nombre de secondes à attendre
+        @return void
+    */
     void attendre(secondes s);
     void demiTour();
     void sonor (int frequence, int duree);

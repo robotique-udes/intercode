@@ -88,30 +88,11 @@ void setup()
 bool b = false;
 
 void loop() {
-    demonstrationMoteurs();
-    while(1)
-    {
-    }
+    void faireParcours();
+
 }
 
-void demonstrationMoteurs(){
-  secondes delai;
-  delai.valeur = 2;
-  Serial.println("Avancer");
-  robot.avancer(50);
-  robot.attendre(delai);
-  Serial.println("Reculer");
-  robot.reculer(50);
-  robot.attendre(delai);
-  Serial.println("Stop");
-  robot.arreter();
-  robot.attendre(delai);
-  Serial.println("Demi-tour");
-  robot.demiTour();
-  robot.attendre(delai);
-  Serial.println("Quart de tour");
-  robot.tourner(Cote::DROITE);
-}
+
       
 
 

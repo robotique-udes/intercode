@@ -152,7 +152,7 @@ void Robot::tourner(Cote cote)
 /*
 Retourne Allumer si la lumière est allumer
 */
-Lumiere Robot::lumiereAllumee() const
+Lumiere Robot::detecterLumiere() const
 {
     int sensorValue = analogRead(A0);
     if (sensorValue > HauteLumiere)
