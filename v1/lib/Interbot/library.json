@@ -1,0 +1,30 @@
+{
+    "name": "Interbot",
+    "version": "0.1.0",
+    "description": "Library built for the Intercode projet for Technosciences Estrie",
+    "keywords": "intercode, sherbrooke, technologie, science, robotique, estrie",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/robotique-udes/intercode.git"
+    },
+    "authors": [
+        {
+            "name": "Philippe Warren",
+            "email": "philippewarren31@gmail.com",
+            "maintainer": true
+        }
+    ],
+    "license": "MIT",
+    "homepage": "https://github.com/robotique-udes/intercode.git",
+    "dependencies": {
+        "arduino-libraries/ArduinoMotorCarrier": "^2.0.1",
+        "Wire": "^1.0"
+    },
+    "frameworks": "arduino",
+    "platforms": "atmelsam",
+    "build": {
+        "extraScript": "extra_script.py",
+        "flags": "-std=gnu++14",
+        "unflags": "-std=gnu++11"
+    }
+}
