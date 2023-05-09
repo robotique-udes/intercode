@@ -1,5 +1,5 @@
-#include <lib/Interbot/Interbot.h>
-
+#include <Arduino.h>
+#include "interbot/Interbot.h"
 #define FACILE
 
 // Fait par les kids genre
