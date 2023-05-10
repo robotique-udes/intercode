@@ -77,8 +77,8 @@ inline secondes operator""s(unsigned long long s)
 
 // Sonar //
 
-#define SONAR_PIN_INPUT 8
-#define SONAR_PIN_OUTPUT 6
+#define SONAR_PIN_INPUT 7
+#define SONAR_PIN_OUTPUT 8
 
 // Simple DEL //
 

@@ -82,12 +82,13 @@ void demonstrationMoteurs(){
 
 void faireParcours()
 {
-   robot.avancer(50);
+    Serial.println(robot.detecterObjet());
+   /*robot.avancer(50);
    if(robot.detecterLigne())
    {
     robot.arreter();
     robot.allumerEteindreDel(true); 
-   }
+   }*/
 }
 
 #endif // FACILE

@@ -68,13 +68,9 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  
-
     // Reboot the motor controller; brings every value back to default
     Serial.println("reboot");
     delay(500);
-
- 
 
     pinMode(PIN_MOTEUR_GAUCHE_AVANCER, OUTPUT);
     pinMode(PIN_MOTEUR_GAUCHE_RECULER, OUTPUT);
@@ -88,8 +84,9 @@ void setup()
 bool b = false;
 
 void loop() {
-    void faireParcours();
-
+    //void faireParcours();
+    Serial.println("Hello world !");
+    delay(1000);
 }
 
 

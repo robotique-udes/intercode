@@ -4,6 +4,7 @@
 #include <ArduinoMotorCarrier.h>
 
 void demonstrationMoteurs();
+void faireParcours();
 
 static float batteryVoltage;
 //low battery limit (discharged)
@@ -65,7 +66,7 @@ void boutonISR()
 void setup()
 {
   //Serial port initialization
-  Serial.begin(115200);
+  Serial.begin(9600);
   while (!Serial);
 
   
@@ -88,12 +89,11 @@ void setup()
 bool b = false;
 
 void loop() {
-    void faireParcours();
-
+    delay(2000);
+    Serial.println("Loop");
+    faireParcours();
+    
 }
-
-
-      
 
 
     // if (etat < Etat::DEPART_PARCOURS)
