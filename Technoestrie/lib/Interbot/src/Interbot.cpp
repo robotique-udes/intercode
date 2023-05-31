@@ -19,10 +19,10 @@ void Robot::avancer(int PourcentageVitesse)
         PWM = 20;
 
     if (PWM > 0){
-        analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,PWM);
+        /*analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,PWM);
         analogWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
         analogWrite(PIN_MOTEUR_DROITE_AVANCER,PWM);
-        analogWrite(PIN_MOTEUR_DROITE_RECULER,LOW);
+        analogWrite(PIN_MOTEUR_DROITE_RECULER,LOW);*/
     }
 }
 
@@ -35,20 +35,20 @@ void Robot::reculer(int PourcentageVitesse)
     else if (PWM < 20)
         PWM = 20;
     if (PWM > 0){
-        analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,LOW);
+        /*analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,LOW);
         analogWrite(PIN_MOTEUR_GAUCHE_RECULER,PWM);
         analogWrite(PIN_MOTEUR_DROITE_AVANCER,LOW);
-        analogWrite(PIN_MOTEUR_DROITE_RECULER,PWM);
+        analogWrite(PIN_MOTEUR_DROITE_RECULER,PWM);*/
     }
     
 }
 
 void Robot::arreter()
 {
-    analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,LOW);
+    /*analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,LOW);
     analogWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
     analogWrite(PIN_MOTEUR_DROITE_AVANCER,LOW);
-    analogWrite(PIN_MOTEUR_DROITE_RECULER,LOW); 
+    analogWrite(PIN_MOTEUR_DROITE_RECULER,LOW); */
 }
 
 /*
@@ -134,17 +134,17 @@ void Robot::tourner(Cote cote)
 
     if (cote == Cote::DROITE)
     {
-        analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,PWM);
+        /*analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,PWM);
         analogWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
         analogWrite(PIN_MOTEUR_DROITE_AVANCER,LOW);
-        analogWrite(PIN_MOTEUR_DROITE_RECULER,LOW);
+        analogWrite(PIN_MOTEUR_DROITE_RECULER,LOW);*/
     }
     else
     {
-        analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,LOW);
+        /*analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,LOW);
         analogWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
         analogWrite(PIN_MOTEUR_DROITE_AVANCER,PWM);
-        analogWrite(PIN_MOTEUR_DROITE_RECULER,LOW);
+        analogWrite(PIN_MOTEUR_DROITE_RECULER,LOW);*/
     } 
     delay(1000);
     arreter();   
@@ -154,7 +154,7 @@ Retourne Allumer si la lumière est allumer
 */
 Lumiere Robot::detecterLumiere() const
 {
-    int sensorValue = analogRead(A0);
+    int sensorValue = analogRead(A4);
     if (sensorValue > HauteLumiere)
     {
          Serial.println("Lumiere haute");
@@ -203,10 +203,10 @@ void Robot::attendre(secondes s)
 void Robot::demiTour()
 {
     int PWM = 75;
-    analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,PWM);
+    /*analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,PWM);
     analogWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
     analogWrite(PIN_MOTEUR_DROITE_AVANCER,LOW);
-    analogWrite(PIN_MOTEUR_DROITE_RECULER,PWM);
+    analogWrite(PIN_MOTEUR_DROITE_RECULER,PWM);*/
 
     delay(2000);
     arreter(); 

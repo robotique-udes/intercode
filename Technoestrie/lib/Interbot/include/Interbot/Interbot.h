@@ -61,18 +61,18 @@ inline secondes operator""s(unsigned long long s)
 #endif
 
 // Suiveur de ligne //
-#define PIN_MOTEUR_GAUCHE_AVANCER 2
-#define PIN_MOTEUR_GAUCHE_RECULER 3
+#define PIN_MOTEUR_GAUCHE_DIRECTION 2
+#define PIN_MOTEUR_GAUCHE_VITESSE 3
+#define PIN_MOTEUR_DROITE_VITESSE 5
+#define PIN_MOTEUR_DROITE_DIRECTION 4
 
-#define PIN_MOTEUR_DROITE_AVANCER 5
-#define PIN_MOTEUR_DROITE_RECULER 4
 
 
 // Suiveur de ligne //
 
-#define PIN_SDL_DROITE A1 // Left Sensor on Analog Pin 2
-#define PIN_SDL_GAUCHE A2 // Right Sensor on Analog Pin 1
-#define PIN_SDL_MILIEU A3 // Middle Sensor on Analog Pin 0
+#define PIN_SDL_DROITE A6 // Left Sensor on Analog Pin 2
+#define PIN_SDL_GAUCHE A5 // Right Sensor on Analog Pin 1
+#define PIN_SDL_MILIEU A7 // Middle Sensor on Analog Pin 0
 #define SdlValeur 600 // Le capteur detecte une ligne lorque la valeur est superieur
 
 // Sonar //
@@ -97,7 +97,7 @@ inline secondes operator""s(unsigned long long s)
 
 // capteur d'eau //
 
-#define PIN_CAPTEUR_EAU A0
+#define PIN_CAPTEUR_EAU A2
 #define SeuilPluie 200
 
 // donnees de deplacement //

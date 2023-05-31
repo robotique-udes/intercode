@@ -82,7 +82,19 @@ void demonstrationMoteurs(){
 
 void faireParcours()
 {
-    Serial.println(robot.detecterObjet());
+    //Serial.println(robot.detecterObjet());
+    digitalWrite(3,LOW);
+    analogWrite(PIN_A1,100);
+    while(1)
+    {
+        /*Serial.println("Test");
+        Serial.println("LOW");
+        digitalWrite(14,LOW);
+        delay(10);
+        Serial.println("HIGH");
+        digitalWrite(14,HIGH);
+        delay(10);*/
+    }
    /*robot.avancer(50);
    if(robot.detecterLigne())
    {

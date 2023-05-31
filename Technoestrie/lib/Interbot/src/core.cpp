@@ -75,12 +75,13 @@ void setup()
     Serial.println("reboot");
     delay(500);
 
- 
 
-    pinMode(PIN_MOTEUR_GAUCHE_AVANCER, OUTPUT);
-    pinMode(PIN_MOTEUR_GAUCHE_RECULER, OUTPUT);
-    pinMode(PIN_MOTEUR_DROITE_AVANCER, OUTPUT);
-    pinMode(PIN_MOTEUR_DROITE_RECULER, OUTPUT);
+    pinMode(PIN_MOTEUR_GAUCHE_DIRECTION, OUTPUT);
+    pinMode(PIN_MOTEUR_GAUCHE_VITESSE, OUTPUT);
+    pinMode(PIN_MOTEUR_DROITE_DIRECTION, OUTPUT);
+    pinMode(PIN_MOTEUR_DROITE_VITESSE, OUTPUT);
+    pinMode(2,OUTPUT);
+    pinMode(3,OUTPUT);
 
   batteryLimit = 6; //Around 9V for a 3S LiPo battery
 
@@ -89,10 +90,36 @@ void setup()
 bool b = false;
 
 void loop() {
-    delay(2000);
-    Serial.println("Loop");
-    faireParcours();
-    
+    // Code pour tourner moteurs
+    /*analogWrite(PIN_MOTEUR_GAUCHE_VITESSE,100);
+    digitalWrite(PIN_MOTEUR_GAUCHE_DIRECTION,HIGH);
+    analogWrite(PIN_MOTEUR_DROITE_VITESSE,100);
+    digitalWrite(PIN_MOTEUR_DROITE_DIRECTION,LOW);
+    while(1)
+    {
+        Serial.println("loop");
+    }*/
+    // Deteccteur ligne
+    /*Serial.println("Loop");
+    if(robot.detecterLigneDroite())
+    {
+        Serial.println("LigneDroite");
+    }
+    else if(robot.detecterLigneMilieu())
+    {
+        Serial.println("LigneMillieu");
+    }
+    else if(robot.detecterLigneGauche())
+    {
+        Serial.println("LigneGauche");
+    }
+    delay(1000);*/
+    Serial.println(analogRead(PIN_CAPTEUR_EAU));
+    if(robot.pluieEnCours())
+    {
+        Serial.println("Pluie");
+    }
+    delay(1000);
 }
 
 
