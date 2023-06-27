@@ -91,14 +91,14 @@ bool b = false;
 
 void loop() {
     // Code pour tourner moteurs
-    /*analogWrite(PIN_MOTEUR_GAUCHE_VITESSE,100);
+    analogWrite(PIN_MOTEUR_GAUCHE_VITESSE,100);
     digitalWrite(PIN_MOTEUR_GAUCHE_DIRECTION,HIGH);
     analogWrite(PIN_MOTEUR_DROITE_VITESSE,100);
-    digitalWrite(PIN_MOTEUR_DROITE_DIRECTION,LOW);
+    digitalWrite(PIN_MOTEUR_DROITE_DIRECTION,HIGH);
     while(1)
     {
         Serial.println("loop");
-    }*/
+    }
     // Deteccteur ligne
     /*Serial.println("Loop");
     if(robot.detecterLigneDroite())
@@ -114,12 +114,12 @@ void loop() {
         Serial.println("LigneGauche");
     }
     delay(1000);*/
-    Serial.println(analogRead(PIN_CAPTEUR_EAU));
+    /*Serial.println(analogRead(PIN_CAPTEUR_EAU));
     if(robot.pluieEnCours())
     {
         Serial.println("Pluie");
     }
-    delay(1000);
+    delay(1000);*/
 }
 
 
