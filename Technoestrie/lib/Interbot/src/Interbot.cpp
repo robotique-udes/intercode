@@ -19,10 +19,10 @@ void Robot::avancer(int PourcentageVitesse)
         PWM = 20;
 
     if (PWM > 0){
-        /*analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,PWM);
-        analogWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
-        analogWrite(PIN_MOTEUR_DROITE_AVANCER,PWM);
-        analogWrite(PIN_MOTEUR_DROITE_RECULER,LOW);*/
+        analogWrite(PIN_MOTEUR_GAUCHE_VITESSE,PWM);
+        digitalWrite(PIN_MOTEUR_GAUCHE_DIRECTION,HIGH);
+        analogWrite(PIN_MOTEUR_DROITE_VITESSE,PWM);
+        digitalWrite(PIN_MOTEUR_DROITE_DIRECTION,HIGH);
     }
 }
 
@@ -35,20 +35,18 @@ void Robot::reculer(int PourcentageVitesse)
     else if (PWM < 20)
         PWM = 20;
     if (PWM > 0){
-        /*analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,LOW);
-        analogWrite(PIN_MOTEUR_GAUCHE_RECULER,PWM);
-        analogWrite(PIN_MOTEUR_DROITE_AVANCER,LOW);
-        analogWrite(PIN_MOTEUR_DROITE_RECULER,PWM);*/
+        analogWrite(PIN_MOTEUR_GAUCHE_VITESSE,PWM);
+        digitalWrite(PIN_MOTEUR_GAUCHE_DIRECTION,LOW);
+        analogWrite(PIN_MOTEUR_DROITE_VITESSE,PWM);
+        digitalWrite(PIN_MOTEUR_DROITE_DIRECTION,LOW);
     }
     
 }
 
 void Robot::arreter()
 {
-    /*analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,LOW);
-    analogWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
-    analogWrite(PIN_MOTEUR_DROITE_AVANCER,LOW);
-    analogWrite(PIN_MOTEUR_DROITE_RECULER,LOW); */
+    analogWrite(PIN_MOTEUR_GAUCHE_VITESSE,0);
+    analogWrite(PIN_MOTEUR_DROITE_VITESSE,0);
 }
 
 /*
@@ -134,17 +132,17 @@ void Robot::tourner(Cote cote)
 
     if (cote == Cote::DROITE)
     {
-        /*analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,PWM);
-        analogWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
-        analogWrite(PIN_MOTEUR_DROITE_AVANCER,LOW);
-        analogWrite(PIN_MOTEUR_DROITE_RECULER,LOW);*/
+        analogWrite(PIN_MOTEUR_GAUCHE_VITESSE,PWM);
+        analogWrite(PIN_MOTEUR_DROITE_VITESSE,0);
+        digitalWrite(PIN_MOTEUR_GAUCHE_DIRECTION,HIGH);
+        digitalWrite(PIN_MOTEUR_DROITE_DIRECTION,HIGH);
     }
     else
     {
-        /*analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,LOW);
-        analogWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
-        analogWrite(PIN_MOTEUR_DROITE_AVANCER,PWM);
-        analogWrite(PIN_MOTEUR_DROITE_RECULER,LOW);*/
+        analogWrite(PIN_MOTEUR_GAUCHE_VITESSE,0);
+        analogWrite(PIN_MOTEUR_DROITE_VITESSE,PWM);
+        digitalWrite(PIN_MOTEUR_GAUCHE_DIRECTION,HIGH);
+        digitalWrite(PIN_MOTEUR_DROITE_DIRECTION,HIGH);
     } 
     delay(1000);
     arreter();   
@@ -203,10 +201,10 @@ void Robot::attendre(secondes s)
 void Robot::demiTour()
 {
     int PWM = 75;
-    /*analogWrite(PIN_MOTEUR_GAUCHE_AVANCER,PWM);
-    analogWrite(PIN_MOTEUR_GAUCHE_RECULER,LOW);
-    analogWrite(PIN_MOTEUR_DROITE_AVANCER,LOW);
-    analogWrite(PIN_MOTEUR_DROITE_RECULER,PWM);*/
+    analogWrite(PIN_MOTEUR_GAUCHE_VITESSE,PWM);
+    analogWrite(PIN_MOTEUR_DROITE_VITESSE,PWM);
+    digitalWrite(PIN_MOTEUR_GAUCHE_DIRECTION,LOW);
+    digitalWrite(PIN_MOTEUR_DROITE_DIRECTION,HIGH);
 
     delay(2000);
     arreter(); 

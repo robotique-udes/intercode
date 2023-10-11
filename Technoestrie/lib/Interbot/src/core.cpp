@@ -66,13 +66,13 @@ void boutonISR()
 void setup()
 {
   //Serial port initialization
-  Serial.begin(9600);
-  while (!Serial);
+  //Serial.begin(9600);
+  //while (!Serial);
 
   
 
     // Reboot the motor controller; brings every value back to default
-    Serial.println("reboot");
+    //Serial.println("reboot");
     delay(500);
 
 
@@ -82,7 +82,7 @@ void setup()
     pinMode(PIN_MOTEUR_DROITE_VITESSE, OUTPUT);
     pinMode(2,OUTPUT);
     pinMode(3,OUTPUT);
-
+    pinMode(13, OUTPUT);
   batteryLimit = 6; //Around 9V for a 3S LiPo battery
 
 }
@@ -91,13 +91,17 @@ bool b = false;
 
 void loop() {
     // Code pour tourner moteurs
-    analogWrite(PIN_MOTEUR_GAUCHE_VITESSE,100);
+    analogWrite(PIN_MOTEUR_GAUCHE_VITESSE,50);
     digitalWrite(PIN_MOTEUR_GAUCHE_DIRECTION,HIGH);
-    analogWrite(PIN_MOTEUR_DROITE_VITESSE,100);
-    digitalWrite(PIN_MOTEUR_DROITE_DIRECTION,HIGH);
+    analogWrite(PIN_MOTEUR_DROITE_VITESSE,50);
+    digitalWrite(PIN_MOTEUR_DROITE_DIRECTION,LOW);
     while(1)
     {
-        Serial.println("loop");
+        //Serial.println("loop");
+        digitalWrite(13, LOW);
+        delay(1000);
+        digitalWrite(13, HIGH);
+        delay(1000);
     }
     // Deteccteur ligne
     /*Serial.println("Loop");
