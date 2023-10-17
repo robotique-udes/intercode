@@ -268,6 +268,7 @@ MOYEN_NIVEAU:
     {
         float getTension() const;
     };
+
     class Moteur
     {
         enum class Sens

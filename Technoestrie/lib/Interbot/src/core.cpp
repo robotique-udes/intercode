@@ -7,13 +7,10 @@ void demonstrationMoteurs();
 void faireParcours();
 
 static float batteryVoltage;
-//low battery limit (discharged)
-static float batteryLimit; 
-//Variable to change the motor speed and direction
+// low battery limit (discharged)
+static float batteryLimit;
+// Variable to change the motor speed and direction
 int duty = -15;
-
-// Prototype pour la fonction qui sera définie par l'utilisateur
-//void faireParcours();
 
 Robot robot1;
 
@@ -27,7 +24,7 @@ enum class Etat
     ARRET_URGENCE
 };
 volatile Etat etat = Etat::INIT;
-  
+
 void boutonISR()
 {
     if (etat == Etat::ATTENTE_BOUTON)
@@ -42,103 +39,35 @@ void boutonISR()
         etat = Etat::ARRET_URGENCE;
         return;
     }
-
 }
 
-// void setup()
-// {
-//     Serial.begin(115200);
-//     Serial.println("Hello World!");
-//     // put your setup code here, to run once:
-    
-//     // bot.init();
-//     // attach interrupt bouton
-//     attachInterrupt(digitalPinToInterrupt(direct::PIN_BOUTON_INTERRUPT), boutonISR,
-//                     FALLING);
-//     etat = Etat::ATTENTE_BOUTON;
-//     pinMode(PIN_SDL_DROITE,INPUT);
-//     pinMode(PIN_SDL_GAUCHE,INPUT);
-//     pinMode(PIN_SDL_MILIEU,INPUT);
-//     pinMode(PIN_SIMPLE_DEL, OUTPUT);
-//     pinMode(PIN_LUM_CAP_DEL,OUTPUT);
-    
-// }
 void setup()
 {
-  //Serial port initialization
-  //Serial.begin(9600);
-  //while (!Serial);
-
-  
-
-    // Reboot the motor controller; brings every value back to default
-    //Serial.println("reboot");
     delay(500);
-
-
     pinMode(PIN_MOTEUR_GAUCHE_DIRECTION, OUTPUT);
     pinMode(PIN_MOTEUR_GAUCHE_VITESSE, OUTPUT);
     pinMode(PIN_MOTEUR_DROITE_DIRECTION, OUTPUT);
     pinMode(PIN_MOTEUR_DROITE_VITESSE, OUTPUT);
-    pinMode(2,OUTPUT);
-    pinMode(3,OUTPUT);
+    pinMode(2, OUTPUT);
+    pinMode(3, OUTPUT);
     pinMode(13, OUTPUT);
-  batteryLimit = 6; //Around 9V for a 3S LiPo battery
-
+    batteryLimit = 6; // Around 9V for a 3S LiPo battery
+    Serial.begin(9600);
 }
 
 bool b = false;
 
-void loop() {
-    // Code pour tourner moteurs
-    analogWrite(PIN_MOTEUR_GAUCHE_VITESSE,50);
-    digitalWrite(PIN_MOTEUR_GAUCHE_DIRECTION,HIGH);
-    analogWrite(PIN_MOTEUR_DROITE_VITESSE,50);
-    digitalWrite(PIN_MOTEUR_DROITE_DIRECTION,LOW);
-    while(1)
+void loop()
+{
+    if (robot.detecterObjet()> 50 )
     {
-        //Serial.println("loop");
-        digitalWrite(13, LOW);
-        delay(1000);
-        digitalWrite(13, HIGH);
-        delay(1000);
+        robot.avancer(50);
     }
-    // Deteccteur ligne
-    /*Serial.println("Loop");
     if(robot.detecterLigneDroite())
     {
-        Serial.println("LigneDroite");
+        robot.tourner(Cote::DROITE);
     }
-    else if(robot.detecterLigneMilieu())
-    {
-        Serial.println("LigneMillieu");
-    }
-    else if(robot.detecterLigneGauche())
-    {
-        Serial.println("LigneGauche");
-    }
-    delay(1000);*/
-    /*Serial.println(analogRead(PIN_CAPTEUR_EAU));
-    if(robot.pluieEnCours())
-    {
-        Serial.println("Pluie");
-    }
-    delay(1000);*/
+
+    
+    
 }
-
-
-    // if (etat < Etat::DEPART_PARCOURS)
-    // {
-    //     // En attente du bouton
-    //     return;
-    // }
-    // if (etat >= Etat::PARCOURS_TERMINE)
-    // {
-    //     // On est en arret d'urgence ou on a termine le parcours
-    //     // On recommence a attendre le bouton
-    //     etat = Etat::ATTENTE_BOUTON;
-    //     return;
-    // }
-
-    // faireParcours();
-
