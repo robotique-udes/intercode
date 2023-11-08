@@ -92,7 +92,7 @@ inline secondes operator""s(unsigned long long s)
 
 // capteur d'humidite //
 
-#define PIN_HUMIDITE A1
+#define PIN_HUMIDITE A3
 #define SeuilHumidite 400
 
 // capteur d'eau //
@@ -128,6 +128,7 @@ HAUT_NIVEAU:
     void avancer(int PourcentageVitesse); // Changer pour mettre une distance
     /*
     Cette fonction permet de faire reculer le robot.
+    @param Le pourcentage de vitesse à utiliser
     @return void
     */
     void reculer(int PourcentageVitesse);
@@ -160,12 +161,20 @@ HAUT_NIVEAU:
     */
     Lumiere detecterLumiere() const;
     /* 
-    Cette fonction détecte si il y a de l'eau.
-    @return true si il y a de l'eau
+    Cette fonction détecte un niveau d'humidité.
+    @return La valeur d'humidité
     */
-    bool estHumide() const;
+    uint32_t detecterHumidite() const;
     // uint32_t obtenirHumidite();
-    bool pluieEnCours() const;
+    /*
+    Cette fonction détecte la présence d'eau
+    @return true si de l'eau est détectée
+    */
+    bool detecterEau() const;
+    /*
+    Cette focntion permet de faire allumer ou éteindre une del
+    @param L'état voulu de la Led
+    */
     void allumerEteindreDel(bool entree);
     /*
         Cette fonction permet de faire attendre le robot.
@@ -173,8 +182,10 @@ HAUT_NIVEAU:
         @return void
     */
     void attendre(secondes s);
+    /*
+    Cette fonction permet au robot de faire un demi-tour
+    */
     void demiTour();
-    void sonor (int frequence, int duree);
 
     // clang-format off
 MOYEN_NIVEAU:

@@ -147,9 +147,8 @@ void Robot::tourner(Cote cote)
     delay(1000);
     arreter();   
  }
-/*
-Retourne Allumer si la lumière est allumer
-*/
+
+
 Lumiere Robot::detecterLumiere() const
 {
     int sensorValue = analogRead(A4);
@@ -172,14 +171,13 @@ Lumiere Robot::detecterLumiere() const
         return Lumiere::Eteinte;
     }
 }
-bool Robot::estHumide() const
+
+uint32_t Robot::detecterHumidite() const
 {
-    if (analogRead(PIN_HUMIDITE) > SeuilHumidite)
-        return true;
-        
-    return false;
+    return analogRead(PIN_HUMIDITE);
 }
-bool Robot::pluieEnCours() const
+
+bool Robot::detecterEau() const
 {
     if(analogRead(PIN_CAPTEUR_EAU) < SeuilPluie)
         return true;
