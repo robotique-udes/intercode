@@ -23,25 +23,25 @@ volatile Etat etat = Etat::INIT;
 
 void boutonISR()
 {
-    if (etat == Etat::ATTENTE_BOUTON)
+    if (etat == Etat::ATTENTE_BOUTON || etat == Etat::INIT)
     {
         etat = Etat::DEPART_PARCOURS;
         return;
     }
 
-    if (etat == Etat::PARCOURS_EN_COURS || etat == Etat::DEPART_PARCOURS)
-    {
-        Serial.println("Le parcourt est terminé");
-        etat = Etat::ARRET_URGENCE;
-        return;
-    }
+    // if (etat == Etat::PARCOURS_EN_COURS || etat == Etat::DEPART_PARCOURS)
+    // {
+    //     Serial.println("Le parcourt est terminé");
+    //     etat = Etat::ARRET_URGENCE;
+    //     return;
+    // }
 }
 
 void setup()
 {
-  //Serial port initialization
-  Serial.begin(9600);
-  while (!Serial);
+    //Serial port initialization
+    Serial.begin(9600);
+    while (!Serial);
 
     // Reboot the motor controller; brings every value back to default
     //Serial.println("reboot");
@@ -54,18 +54,21 @@ void setup()
     pinMode(3,OUTPUT);
     pinMode(10,OUTPUT);
     pinMode(13, OUTPUT);
+    pinMode(direct::PIN_BOUTON_INTERRUPT,INPUT_PULLDOWN);
+    attachInterrupt(digitalPinToInterrupt(direct::PIN_BOUTON_INTERRUPT), boutonISR,RISING);
     batteryLimit = 6; //Around 9V for a 3S LiPo battery
 
 }
 
-bool b = false;
-
 void loop() {
-    faireParcours();
-    // On éxecute la fonction faireParcours seulement une fois
+    // On éxecute la fonction faireParcours seulement après avoir appuyé sur le bouton
     while(1)
     {
-
+        if(etat == Etat::DEPART_PARCOURS)
+        {
+            etat = Etat::PARCOURS_EN_COURS;
+            faireParcours();
+            etat = Etat::ATTENTE_BOUTON;
+        }
     }
 }
-
